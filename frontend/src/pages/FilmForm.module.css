@@ -1,0 +1,99 @@
+.form {
+  position: relative;
+}
+
+.card {
+  padding: 1rem 3rem;
+  /* margin: 1rem; */
+  box-shadow: 0 15px 25px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 9px;
+  background-color: white;
+  /* margin: 3rem auto; */
+  max-width: 25rem;
+  /* display: flex;
+  align-items: centre;
+  justify-content: center;*/
+}
+
+.loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control {
+  margin-bottom: 0.5rem;
+}
+
+.control label {
+  display: block;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(90deg, #653173, #e13272);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 0.85rem;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.control input,
+.control select,
+.control textarea {
+  font: inherit;
+  padding: 0.35rem;
+  border-radius: 9px;
+  background-color: #f0f0f0;
+  border: 1px solid #c1d1d1;
+  display: block;
+  width: 100%;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #777;
+  font-weight: 400;
+}
+
+.control input:focus,
+.control textarea:focus {
+  outline-color: #e13272;
+}
+.actions {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+span h1 {
+  text-align: center;
+  background: linear-gradient(90deg, #653173, #e13272);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 1.2rem;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.toggle {
+  margin-top: 0.5rem;
+  background-color: transparent;
+  color: #32506c;
+  border: none;
+  padding: 0.15rem 1.5rem;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.toggle:hover {
+  background-color: transparent;
+  background: linear-gradient(90deg, #653173, #e13272);
+  -webkit-background-clip: text;
+  color: transparent;
+}
