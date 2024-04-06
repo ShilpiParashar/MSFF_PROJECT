@@ -56,29 +56,38 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className={styles.textbox}>
-          <nav className={styles["icon-flex"]}>
-            <img src="img/omnifood-logo.png" class="logo" alt="Omnifood logo" />
+        <div className={styles["footer-section"]}>
+          <div className={styles.textbox}>
+            <img src="img/omnifood-logo.png" class="logo" alt="logo" />
+            <nav>
+              <h3>Connect with us</h3>
+              <nav className={styles["footer-item"]}>
+                <a href="https://www.instagram.com/movie_capture_studio/">
+                  <ion-icon
+                    name="logo-instagram"
+                    style={{ fontSize: "1.5rem", color: "#e13272" }}
+                  ></ion-icon>
+                </a>
+                <ion-icon
+                  name="logo-whatsapp"
+                  style={{ fontSize: "1.5rem", color: "#66c873" }}
+                ></ion-icon>
+                <a href="https://www.facebook.com/profile.php?id=100079736436940&mibextid=LQQJ4d">
+                  <ion-icon
+                    name="logo-facebook"
+                    style={{ fontSize: "1.5rem", color: "blue" }}
+                  ></ion-icon>
+                </a>
+              </nav>
+              <p className={styles["footer-item"]}>
+                Copyright <span className="year "> 2021 </span> by Omnifood.inc.
+                All rights reserved.
+              </p>
+            </nav>
+          </div>
 
-            <h3 className={styles["footer-item"]}>
-              <strong>Connect with us</strong>
-            </h3>
-            <a href="https://www.instagram.com/movie_capture_studio/">
-              <ion-icon name="logo-instagram" className="logo-icons"></ion-icon>
-            </a>
-            <ion-icon name="logo-whatsapp" className="logo-icons"></ion-icon>
-            <ion-icon name="logo-facebook" className="logo-icons"></ion-icon>
-
-            <p className={styles["footer-item"]}>
-              Copyright <span className="year "> 2021 </span> by Omnifood.inc.
-              All rights reserved.
-            </p>
-          </nav>
-
-          <nav className={styles["footer-grid"]}>
-            <p className={styles["footer-item"]}>
-              <strong>Contact us</strong>
-            </p>
+          <div className={styles.textbox}>
+            <h3>Contact us</h3>
             <ul className={styles["footer-item"]}>
               <li className={styles["footer-item"]}>
                 623 Harrison St., 2nd Floor, San Francisco, CA 94107
@@ -97,7 +106,7 @@ const HomePage = () => {
                 </a>
               </li>
             </ul>
-          </nav>
+          </div>
         </div>
       </div>
     </Fragment>

@@ -61,11 +61,12 @@
 .control textarea:focus {
   outline-color: #e13272;
 }
-.actions {
+.actions h2 {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 0.9rem;
 }
 
 span h1 {

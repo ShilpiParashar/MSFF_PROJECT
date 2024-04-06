@@ -166,7 +166,7 @@ const ParticipantForm = () => {
         </div>
 
         <div className={classes.actions}>
-          <h2>Nomination Fees is 2000rs.</h2>
+          <h2>Nomination Fees is &#8377; 2000/-</h2>
           <div className={styles.box}>
             <button
               type="button"
