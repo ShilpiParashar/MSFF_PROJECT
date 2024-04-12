@@ -1,12 +1,10 @@
 import { Fragment, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import classes from "./FilmForm.module.css";
+// import { useNavigate } from "react-router-dom";
+import classes from "./ParticipantForm.module.css";
 import styles from "./MainPage.module.css";
 import axios from "axios";
 
 const ParticipantForm = () => {
-  const navigate = useNavigate();
-
   const [name, setname] = useState();
   const [email, setemail] = useState();
   const [number, setnumber] = useState();
@@ -15,55 +13,101 @@ const ParticipantForm = () => {
   const [sfs, setsfs] = useState();
   const [dl, setdl] = useState();
 
-  const handleSubmit = (e) => {
+  const submitForm = () => {
+    console.log(name, sfn, dl, lng);
+
+    axios
+      .post("http://localhost:4000/participant", {
+        name: name,
+        email: email,
+        mobileNumber: number,
+        shortFilmName: sfn,
+        language: lng,
+        shortFilmSummary: sfs,
+        driveLink: dl,
+      })
+      .then(
+        (response) => {
+          console.log(response);
+          if (response.status === 201) {
+            alert("participant created Successfully");
+          } else {
+            alert("Unable to create participant");
+          }
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log(name, sfn, dl, lng);
-    if (lng === "") alert("Select a language");
-    else {
-      axios
-        .post("http://localhost:4000/participant", {
-          name: name,
-          email: email,
-          mobileNumber: number,
-          shortFilmName: sfn,
-          language: lng,
-          shortFilmSummary: sfs,
-          driveLink: dl,
-        })
-        .then((response) => {
-          console.log(response);
-          if (Object.keys(response.data).length === 0) {
-            alert("Can't create participant");
-          } else {
-            alert("done");
-          }
-        });
+    // check if the form is filled correctly
+    if (!name || !email || !number || !sfn || !lng || !sfs || !dl) {
+      alert("Complete the form before submit!");
+      return;
     }
-  };
-
-  const paymentHandler = async () => {
-    const amount = 239;
-    console.log("shilpiiiiii");
+    //Payment Process
     // 1st step - create order and get order id
-    const result = await axios.post("http://localhost:4000/order", {
-      amount: amount,
-    });
-    // get orderID
-    console.log(result);
-    // const orderID = result.data.order.id;
-    console.log("test here");
+    var result;
+    try {
+      result = await axios.get("http://localhost:4000/order");
+      console.log(result);
+    } catch (err) {
+      console.log(result);
+    }
+
+    // other way to handle - .then
+    // axios.get("http://localhost:4000/order")
+    // .then(
+    //   (res) => {
+    //   },
+    //   (err) => {
+    //   }
+    // )
+
+    // check if orderId is there (double check)
+    if (!result.data || result.data == "") {
+      alert("order not found");
+      return;
+    }
 
     // 2nd step: create payment modal - call razorPay
     var options = {
-      key: "rzp_test_OSpUlHLgpGxkyt", // Enter the Key ID generated from the Dashboard
-      amount: result.data.order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      key: "rzp_test_OSpUlHLgpGxkyt",
+      amount: result.data.order.amount,
       currency: "INR",
       name: "Acme Corp",
       description: "Test Transaction",
       image: "https://example.com/your_logo",
-      order_id: result.data.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      callback_url: "http://localhost:4000/verifypayment",
+      order_id: result.data.order.id,
+      // callback_url: "http://localhost:4000/verifypayment",
+      handler: function (response) {
+        console.log(
+          response.razorpay_payment_id,
+          response.razorpay_order_id,
+          response.razorpay_signature
+        );
+
+        axios
+          .post("http://localhost:4000/verifypayment", {
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+          })
+          .then(
+            (res) => {
+              console.log(res);
+              submitForm();
+            },
+            (err) => {
+              console.error(err);
+            }
+          );
+      },
       prefill: {
         name: "Shilpi Parashar",
         email: "shilpi@example.com",
@@ -168,13 +212,13 @@ const ParticipantForm = () => {
         <div className={classes.actions}>
           <h2>Nomination Fees is &#8377; 2000/-</h2>
           <div className={styles.box}>
-            <button
+            {/* <button
               type="button"
               className={styles.paybtn}
-              onClick={paymentHandler}
+              // onClick={paymentHandler}
             >
               Pay Now!
-            </button>
+            </button> */}
             <button className={`${styles.submitbtn} ${styles["btn--outline"]}`}>
               Submit
             </button>

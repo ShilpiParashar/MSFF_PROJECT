@@ -54,7 +54,7 @@ Participant.get
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+// app.use(express.urlencoded({ extended: true }));
 // RAZORPAY INTEGRATION
 require("dotenv").config();
 
@@ -63,10 +63,9 @@ const instance = new Razorpay({
   key_secret: process.env.RAZORPAY_API_SECRET,
 });
 
-// create order : POST  - 1st
-app.post("/order", async (req, res) => {
-  //frontend
-  const amount = req.body.amount;
+// create order : GET  - 1st
+app.get("/order", async (req, res) => {
+  const amount = 5;
 
   var options = {
     amount: Number(amount * 100), // amount in the smallest currency unit : paise
@@ -74,17 +73,39 @@ app.post("/order", async (req, res) => {
     receipt: "order_rcptid_11",
   };
 
-  // async
+  // async: callback function method
   instance.orders.create(options, function (err, order) {
-    // order recieved from razorpay
-    console.log(order);
+    if (order) {
+      // order recieved from razorpay
+      console.log(order);
 
-    // return order id
-    res.status(200).json({ order });
+      // return order id
+      res.status(200).json({ order });
+    }
+    if (err) {
+      es.status(400).json({});
+    }
   });
 
-  // silmilar sync func ----
-  // const order = await instance.orders.create(options);
+  // async: .then method ----
+  // instance.orders.create(options)
+  //  .then(
+  //     (order) => {
+  //       console.log(order);
+  //       res.status(200).json({ order });
+  //     }
+  //     (err) => {
+  //       res.status(400).json({ });
+  //     }
+  // });
+
+  // async: await method ----
+  // try{
+  //  const order = await instance.orders.create(options);
+  // }
+  // catch(err){
+  //   res.status(400).json({ });
+  // }
   // res.status(200).json({ order })
 });
 
@@ -93,11 +114,6 @@ app.post("/verifypayment", (req, res) => {
   console.log(req.body);
   const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
     req.body;
-
-  // const generated_signature = hmac_sha256(
-  //   razorpay_order_id + "|" + razorpay_payment_id,
-  //   process.env.RAZORPAY_API_SECRET
-  // );
 
   const body = razorpay_order_id + "|" + razorpay_payment_id;
 
@@ -119,7 +135,7 @@ app.post("/verifypayment", (req, res) => {
 
 // API POST: participant data
 app.post("/participant", async (req, res) => {
-  console.log(req.originalUrl);
+  // console.log(req.originalUrl);
 
   // recieve data from req structure
   console.log(req.body);
@@ -139,16 +155,17 @@ app.post("/participant", async (req, res) => {
       result: "Created Successfully",
     });
   } else {
-    res.status(400);
-    throw new Error("Invalid participant data");
+    res.status(400).json({
+      result: "Invalid participant data",
+    });
   }
 });
 
 // API GET : /backend -> hello
-app.get("/backend", (req, res) => {
-  console.log(req.originalUrl);
-  res.json({ result: "ok", data: 1 });
-});
+// app.get("/backend", (req, res) => {
+//   console.log(req.originalUrl);
+//   res.json({ result: "ok", data: 1 });
+// });
 
 app.listen(4000, () => {
   console.log("server running...");
@@ -169,7 +186,6 @@ post route - test with browser ? how to send data
                 Thunderclient
 
 Diff - thunderclient - can send data
-
 
 "firstname": "shilpi",
 "lastname": "parashar",
