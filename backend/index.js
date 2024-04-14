@@ -10,6 +10,7 @@ mongoose
   )
   .then(() => console.log("Connected!"));
 
+//Creating the model (table structure)
 var participantSchema = new mongoose.Schema(
   {
     name: {
@@ -44,6 +45,7 @@ var participantSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+//Accessing the model
 const Participant = mongoose.model("participant", participantSchema);
 
 /* modal table
@@ -159,6 +161,19 @@ app.post("/participant", async (req, res) => {
       result: "Invalid participant data",
     });
   }
+});
+
+app.get("/participants", async (req, res) => {
+  Participant.find({}).then(
+    (data) => {
+      // console.log(data);
+      res.status(200).json({ data });
+    },
+    (err) => {
+      console.log(err);
+      res.status(400).json({});
+    }
+  );
 });
 
 // API GET : /backend -> hello

@@ -171,22 +171,12 @@ const ParticipantForm = () => {
         </div>
         <div className={classes.control}>
           <label htmlFor="lng">Language</label>
-          <select
-            name="enteredlanguage"
-            id="lng"
-            defaultValue={"Select a Language"}
+          <input
+            name="enteredLng"
+            type="text"
+            id="Enter language"
             onChange={(e) => setlng(e.target.value)}
-          >
-            <option value="" disabled>
-              Select a language
-            </option>
-            <option value="english">English</option>
-            <option value="hindi">Hindi</option>
-            <option value="Kannada">Kannada </option>
-            <option value="Malayalam">Malayalam</option>
-            <option value="Tamil">Tamil</option>
-            <option value="Telegu">Telegu</option>
-          </select>
+          />
         </div>
         <div className={classes.control}>
           <label htmlFor="summary">Summary</label>
@@ -212,13 +202,6 @@ const ParticipantForm = () => {
         <div className={classes.actions}>
           <h2>Nomination Fees is &#8377; 2000/-</h2>
           <div className={styles.box}>
-            {/* <button
-              type="button"
-              className={styles.paybtn}
-              // onClick={paymentHandler}
-            >
-              Pay Now!
-            </button> */}
             <button className={`${styles.submitbtn} ${styles["btn--outline"]}`}>
               Submit
             </button>
