@@ -212,7 +212,8 @@
   .form-section {
     display: inline-block !important;
     height: 1200px !important;
-    padding: 0rem 5rem;
+    align-items: center;
+    justify-content: center;
   }
   .footer-section {
     display: inline-block !important;
