@@ -12,7 +12,6 @@ h1 {
   line-height: 1;
   font-weight: 500;
   padding: 0.7rem;
-  text-align: center;
   color: #fff;
   background: linear-gradient(90deg, #653173, #e13272);
 }
@@ -25,4 +24,8 @@ th {
   -webkit-background-clip: text;
   color: transparent;
   padding: 0.5rem;
+}
+
+.mytable {
+  max-width: 100%;
 }
