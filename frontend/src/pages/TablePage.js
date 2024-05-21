@@ -15,14 +15,20 @@ const TablePage = () => {
       console.log(err);
     }
   );
+  console.log(
+    "table table-striped table-bordered table-hover w-100 " + styles.mytable
+  );
 
   return (
     <div class="container">
       <h1 class="text-center">Participants Data</h1>
+      {/* <p className={"bg-dark " + styles.para}>kuch bhiii</p> */}
       <div class="table-responsive">
         <table
-          class="table table-striped table-bordered table-hover"
-          className={styles.mytable}
+          className={
+            "table table-striped table-bordered table-hover w-100 " +
+            styles.mytable
+          }
         >
           <thead>
             <tr class="shadow-sm mb-5 bg-body rounded">
@@ -46,7 +52,11 @@ const TablePage = () => {
                 <td>{participant.shortFilmName}</td>
                 <td>{participant.language}</td>
                 <td>{participant.shortFilmSummary}</td>
-                <td>{participant.driveLink}</td>
+                <td>
+                  <a className={styles.videolink} href={participant.driveLink}>
+                    {participant.driveLink}
+                  </a>
+                </td>
               </tr>
             ))}
           </tbody>

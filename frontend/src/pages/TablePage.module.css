@@ -1,6 +1,6 @@
 td {
   padding: 0.5rem 0;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   line-height: 0.9;
   color: #333;
   margin-bottom: 0.5rem;
@@ -26,6 +26,12 @@ th {
   padding: 0.5rem;
 }
 
-.mytable {
-  max-width: 100%;
+.videolink {
+  text-decoration: none;
+}
+
+/* form is not getting clear and bootsrap is getting disappear from table and smooth scrolling  */
+
+.para {
+  color: blue;
 }
