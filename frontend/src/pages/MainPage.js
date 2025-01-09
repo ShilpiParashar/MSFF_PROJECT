@@ -2,8 +2,17 @@ import { Fragment, React } from "react";
 import { Link } from "react-router-dom";
 import styles from "./MainPage.module.css";
 import ParticipantForm from "./ParticipantForm";
+import { useRef } from "react";
 
 const HomePage = () => {
+  const footerRef = useRef(null);
+  const formRef = useRef(null);
+  const scrollToFooter = () => {
+    footerRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+  const scrollToForm = () => {
+    formRef.current.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <Fragment>
       <section className={styles["hero-section"]}>
@@ -15,7 +24,7 @@ const HomePage = () => {
             special category award dedicated to Short Films. Recognizing the
             vast reservoir of talent among short film creators, we aim to
             celebrate their creative brilliance by carefully evaluating,
-            showcasing, and honoring their work at MSFF 2024.
+            showcasing, and honoring their work.
           </h3>
         </div>
         {/* <div className={styles["hero-img-box"]}>
@@ -26,15 +35,19 @@ const HomePage = () => {
             />
           </div> */}
         <div className={styles.textbox}>
-          <h2>MSFF Short Film Entries Open Now!</h2>
+          <h2> Short Film Entries Open Now!</h2>
           <div className={styles.box}>
-            <Link className={styles["btn--full"]}>Get started</Link>
-            <Link className={styles["btn--outline"]}>Get in Touch!</Link>
+            <Link onClick={scrollToForm} className={styles["btn--full"]}>
+              Get started
+            </Link>
+            <Link onClick={scrollToFooter} className={styles["btn--outline"]}>
+              Get in Touch!
+            </Link>
           </div>
         </div>
       </section>
 
-      <div className={styles["form-section"]}>
+      <div ref={formRef} className={styles["form-section"]}>
         <div className={styles.textbox}>
           <h2>Rules for participation!</h2>
           <div className={styles.rules}>
@@ -102,13 +115,13 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className={styles["footer-section"]}>
+      <div ref={footerRef} className={styles["footer-section"]}>
         <div className={styles.textbox}>
           <img src="img/omnifood-logo.png" class="logo" alt="logo" />
           <nav>
             <h4>Connect with us</h4>
             <nav className={styles["logo-flex"]}>
-              <a href="https://www.instagram.com/movie_capture_studio/">
+              <a href="https://www.instagram.com/demo_profile/">
                 <ion-icon
                   name="logo-instagram"
                   style={{
@@ -118,7 +131,7 @@ const HomePage = () => {
                   }}
                 ></ion-icon>
               </a>
-              <a href="https://wa.me/7259265736" target="_blank">
+              <a href="https://wa.me/+1234567890" target="_blank">
                 <ion-icon
                   name="logo-whatsapp"
                   style={{
@@ -128,7 +141,7 @@ const HomePage = () => {
                   }}
                 ></ion-icon>
               </a>
-              <a href="https://www.facebook.com/profile.php?id=100079736436940&mibextid=LQQJ4d">
+              <a href="https://www.facebook.com/johndoe.demo">
                 <ion-icon
                   name="logo-facebook"
                   style={{
@@ -140,7 +153,7 @@ const HomePage = () => {
               </a>
             </nav>
             <p className={styles["footer-item"]}>
-              Copyright <span className="year "> 2024 </span> by msff.com.
+              Copyright <span className="year "> 2024 </span> by sff.com.
               <br />
               All rights reserved.
             </p>
@@ -151,22 +164,21 @@ const HomePage = () => {
           <ul className={styles["footer-item"]}>
             <h4>Contact us</h4>
             <li className={styles["footer-item"]}>
-              #16, 12th Cross Ramamandira Road Sarakki, <br />
-              JP Nagar, 1st phase
+              10 MG Road,
               <br />
-              Bengaluru, 560078
+              Bengaluru, 560078, India
             </li>
             <li>
-              <a className={styles["footer-item"]} href="7259265736">
-                +91 7259265736
+              <a className={styles["footer-item"]} href="1234567899">
+                +91 1234567899
               </a>
             </li>
             <li>
               <a
                 className={styles["footer-item"]}
-                href="dosthiproductions@gmail.com "
+                href="spproductions@gmail.com "
               >
-                dosthiproductions@gmail.com
+                spproductions@gmail.com
               </a>
             </li>
           </ul>

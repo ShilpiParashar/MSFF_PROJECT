@@ -30,10 +30,10 @@ const ParticipantForm = () => {
         (response) => {
           console.log(response);
           if (response.status === 201) {
-            alert("participant created Successfully");
+            alert("Participant details saved successfully!");
             window.location.reload();
           } else {
-            alert("Unable to create participant");
+            alert("Unable to save participant details");
           }
         },
         (err) => {
