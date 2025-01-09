@@ -56,7 +56,7 @@ Participant.get
 const app = express();
 app.use(
   cors({
-    origin: ["https://deploy-mern- .vercel.app"], // Allow these origins
+    origin: ["https://msff-project-frontend.vercel.app/"], // Allow these origins
     methods: ["GET", "POST"], // Allow specific HTTP methods
     credentials: true, // Allow cookies/authorization headers
   })
