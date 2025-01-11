@@ -6,7 +6,7 @@ import styles from "./TablePage.module.css";
 const TablePage = () => {
   const [data, setdata] = useState([]);
 
-  axios.get("http://localhost:4000/participants").then(
+  axios.get("https://msff-project-backend.vercel.app/participants").then(
     (response) => {
       console.log(response);
       setdata(response.data.data);

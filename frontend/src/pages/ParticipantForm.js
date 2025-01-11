@@ -15,9 +15,9 @@ const ParticipantForm = () => {
 
   const submitForm = () => {
     console.log(name, sfn, dl, lng);
-
+    axios.defaults.withCredentials = true;
     axios
-      .post("http://localhost:4000/participant", {
+      .post("https://msff-project-backend.vercel.app/participant", {
         name: name,
         email: email,
         mobileNumber: number,
@@ -55,7 +55,7 @@ const ParticipantForm = () => {
     // 1st step - create order and get order id
     var result;
     try {
-      result = await axios.get("http://localhost:4000/order");
+      result = await axios.get("https://msff-project-backend.vercel.app/order");
       console.log(result);
     } catch (err) {
       console.log(result);
@@ -94,7 +94,7 @@ const ParticipantForm = () => {
         );
 
         axios
-          .post("http://localhost:4000/verifypayment", {
+          .post("https://msff-project-backend.vercel.app//verifypayment", {
             razorpay_payment_id: response.razorpay_payment_id,
             razorpay_order_id: response.razorpay_order_id,
             razorpay_signature: response.razorpay_signature,
