@@ -48,14 +48,15 @@ const ParticipantForm = () => {
     console.log(name, sfn, dl, lng);
     // check if the form is filled correctly
     if (!name || !email || !number || !sfn || !lng || !sfs || !dl) {
-      alert("Complete the form before submit!");
+      alert("Complete the form before submitting!");
       return;
     }
     //Payment Process
     // 1st step - create order and get order id
-    var result;
     try {
-      result = await axios.get("https://msff-project-backend.vercel.app/order");
+      const result = await axios.get(
+        "https://msff-project-backend.vercel.app/order"
+      );
       console.log(result);
     } catch (err) {
       console.log(result);
@@ -81,8 +82,8 @@ const ParticipantForm = () => {
       key: "rzp_test_OSpUlHLgpGxkyt",
       amount: result.data.order.amount,
       currency: "INR",
-      name: "Acme Corp",
-      description: "Test Transaction",
+      name: "Film Festival",
+      description: "Nomination Fee",
       image: "https://example.com/your_logo",
       order_id: result.data.order.id,
       // callback_url: "http://localhost:4000/verifypayment",
@@ -122,7 +123,7 @@ const ParticipantForm = () => {
       },
     };
 
-    var rzp1 = new window.Razorpay(options);
+    const rzp1 = new window.Razorpay(options);
     rzp1.open();
   };
 
