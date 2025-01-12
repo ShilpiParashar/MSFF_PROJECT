@@ -56,8 +56,7 @@ Participant.get
 const app = express();
 app.use(
   cors({
-    origin: ["https://msff-project-frontend.vercel.app/"], // Allow these origins
-    methods: ["GET", "POST"], // Allow specific HTTP methods
+    origin: "https://msff-project-frontend.vercel.app/", // Allow these origins
     credentials: true, // Allow cookies/authorization headers
   })
 );
@@ -91,7 +90,7 @@ app.get("/order", async (req, res) => {
       res.status(200).json({ order });
     }
     if (err) {
-      es.status(400).json({});
+      res.status(400).json({ err: "failed to create order" });
     }
   });
 
