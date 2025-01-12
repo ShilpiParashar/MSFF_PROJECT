@@ -17,15 +17,21 @@ const ParticipantForm = () => {
     console.log(name, sfn, dl, lng);
     axios.defaults.withCredentials = true;
     axios
-      .post("https://msff-project-backend.vercel.app/participant", {
-        name: name,
-        email: email,
-        mobileNumber: number,
-        shortFilmName: sfn,
-        language: lng,
-        shortFilmSummary: sfs,
-        driveLink: dl,
-      })
+      .post(
+        "https://msff-project-backend.vercel.app/participant",
+        {
+          name: name,
+          email: email,
+          mobileNumber: number,
+          shortFilmName: sfn,
+          language: lng,
+          shortFilmSummary: sfs,
+          driveLink: dl,
+        },
+        {
+          withCredentials: true, // Include credentials if necessaryto resolve cors error
+        }
+      )
       .then(
         (response) => {
           console.log(response);
@@ -219,195 +225,3 @@ const ParticipantForm = () => {
 };
 
 export default ParticipantForm;
-
-// import { Fragment, useState } from "react";
-// import axios from "axios";
-// import classes from "./ParticipantForm.module.css";
-// import styles from "./MainPage.module.css";
-
-// const ParticipantForm = () => {
-//   const [name, setName] = useState("");
-//   const [email, setEmail] = useState("");
-//   const [number, setNumber] = useState("");
-//   const [sfn, setSfn] = useState(""); // Short Film Name
-//   const [lng, setLng] = useState(""); // Language
-//   const [sfs, setSfs] = useState(""); // Short Film Summary
-//   const [dl, setDl] = useState(""); // Drive Link
-
-//   const submitForm = async () => {
-//     try {
-//       console.log("Submitting participant details...");
-//       const response = await axios.post(
-//         "https://msff-project-backend.vercel.app/participant",
-//         {
-//           name,
-//           email,
-//           mobileNumber: number,
-//           shortFilmName: sfn,
-//           language: lng,
-//           shortFilmSummary: sfs,
-//           driveLink: dl,
-//         }
-//       );
-//       if (response.status === 201) {
-//         alert("Participant details saved successfully!");
-//         window.location.reload();
-//       } else {
-//         alert("Unable to save participant details.");
-//       }
-//     } catch (err) {
-//       console.error("Error saving participant details:", err);
-//       alert("An error occurred while saving participant details.");
-//     }
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     // Validate form inputs
-//     if (!name || !email || !number || !sfn || !lng || !sfs || !dl) {
-//       alert("Complete the form before submitting!");
-//       return;
-//     }
-
-//     let orderResult;
-//     try {
-//       console.log("Fetching order details...");
-//       orderResult = await axios.get(
-//         "https://msff-project-backend.vercel.app/order",
-//         {
-//           withCredentials: true,
-//         }
-//       );
-//       if (!orderResult?.data?.order) {
-//         alert("Order not found. Please try again later.");
-//         return;
-//       }
-//     } catch (err) {
-//       console.error("Error fetching order details:", err);
-//       alert("Failed to fetch order details. Please try again later.");
-//       return;
-//     }
-
-//     // Extract order details
-//     const order = orderResult.data.order;
-//     const options = {
-//       key: "rzp_test_OSpUlHLgpGxkyt",
-//       amount: order.amount,
-//       currency: "INR",
-//       name: "Film Festival",
-//       description: "Nomination Fee",
-//       order_id: order.id,
-//       handler: async (response) => {
-//         try {
-//           console.log("Verifying payment...");
-//           await axios.post(
-//             "https://msff-project-backend.vercel.app/verifypayment",
-//             {
-//               razorpay_payment_id: response.razorpay_payment_id,
-//               razorpay_order_id: response.razorpay_order_id,
-//               razorpay_signature: response.razorpay_signature,
-//             }
-//           );
-//           submitForm(); // Submit participant details after successful payment
-//         } catch (err) {
-//           console.error("Payment verification failed:", err);
-//           alert("Payment verification failed. Please contact support.");
-//         }
-//       },
-//       prefill: {
-//         name,
-//         email,
-//         contact: number,
-//       },
-//       theme: {
-//         color: "#653173",
-//       },
-//     };
-
-//     const rzp1 = new window.Razorpay(options);
-//     rzp1.open();
-//   };
-
-//   return (
-//     <Fragment>
-//       <form className={classes.card} onSubmit={handleSubmit}>
-//         <div className={classes.control}>
-//           <label htmlFor="name">Name</label>
-//           <input
-//             type="text"
-//             id="name"
-//             value={name}
-//             onChange={(e) => setName(e.target.value)}
-//           />
-//         </div>
-//         <div className={classes.control}>
-//           <label htmlFor="email">Email Address</label>
-//           <input
-//             type="email"
-//             id="email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//           />
-//         </div>
-//         <div className={classes.control}>
-//           <label htmlFor="number">Mobile Number</label>
-//           <input
-//             type="text"
-//             id="number"
-//             maxLength="10"
-//             pattern="[1-9]{1}[0-9]{9}"
-//             value={number}
-//             onChange={(e) => setNumber(e.target.value)}
-//           />
-//         </div>
-//         <div className={classes.control}>
-//           <label htmlFor="sfn">Short Film Name</label>
-//           <input
-//             type="text"
-//             id="sfn"
-//             value={sfn}
-//             onChange={(e) => setSfn(e.target.value)}
-//           />
-//         </div>
-//         <div className={classes.control}>
-//           <label htmlFor="lng">Language</label>
-//           <input
-//             type="text"
-//             id="lng"
-//             value={lng}
-//             onChange={(e) => setLng(e.target.value)}
-//           />
-//         </div>
-//         <div className={classes.control}>
-//           <label htmlFor="sfs">Summary</label>
-//           <input
-//             type="text"
-//             id="sfs"
-//             value={sfs}
-//             onChange={(e) => setSfs(e.target.value)}
-//           />
-//         </div>
-//         <div className={classes.control}>
-//           <label htmlFor="dl">Short Film Video Link</label>
-//           <input
-//             type="text"
-//             id="dl"
-//             value={dl}
-//             onChange={(e) => setDl(e.target.value)}
-//           />
-//         </div>
-//         <div className={classes.actions}>
-//           <h2>Nomination Fees is ₹2000/-</h2>
-//           <div className={styles.box}>
-//             <button className={`${styles.submitbtn} ${styles["btn--outline"]}`}>
-//               Submit
-//             </button>
-//           </div>
-//         </div>
-//       </form>
-//     </Fragment>
-//   );
-// };
-
-// export default ParticipantForm;
