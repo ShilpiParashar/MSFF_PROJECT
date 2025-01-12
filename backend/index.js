@@ -6,9 +6,11 @@ const { createHmac } = require("crypto");
 
 mongoose
   .connect(
-    "mongodb+srv://shilpi28:parashar28@cluster0.bcdslgu.mongodb.net/msff?retryWrites=true&w=majority&appName=Cluster0"
+    "mongodb+srv://shilpi28:parashar28@cluster0.bcdslgu.mongodb.net/msff?retryWrites=true&w=majority&appName=Cluster0",
+    { useNewUrlParser: true, useUnifiedTopology: true }
   )
-  .then(() => console.log("Connected!"));
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 //Creating the model (table structure)
 var participantSchema = new mongoose.Schema(
