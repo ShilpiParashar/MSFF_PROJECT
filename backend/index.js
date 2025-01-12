@@ -192,6 +192,10 @@ app.listen(4000, () => {
   console.log("server running...");
 });
 
+app.get("/", (req, res) => {
+  res.send("API is running");
+});
+
 /*
 Frontend - available testing easy
 
