@@ -59,6 +59,7 @@ const app = express();
 app.use(
   cors({
     origin: "https://msff-project-frontend.vercel.app", // Allow these origins
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true, // Allow cookies/authorization headers
   })
 );
