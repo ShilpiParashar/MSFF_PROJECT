@@ -269,7 +269,10 @@ const ParticipantForm = () => {
     try {
       console.log("Fetching order details...");
       orderResult = await axios.get(
-        "https://msff-project-backend.vercel.app/order"
+        "https://msff-project-backend.vercel.app/order",
+        {
+          withCredentials: true,
+        }
       );
       if (!orderResult?.data?.order) {
         alert("Order not found. Please try again later.");
